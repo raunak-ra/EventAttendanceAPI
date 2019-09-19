@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/event/[controller]")]
     [ApiController]
     public class EventController : ControllerBase
     {
@@ -19,12 +19,26 @@ namespace EventAttendance.Controllers
             return EventDB.events;
         }
 
-        [HttpPost("add")]
+        [HttpGet("{id}")]
+        public Event GetEventById(int id)
+        {
+            var @event = EventDB.events.FirstOrDefault(e => e.Id == id);
+            return @event;
+        }
+
+        [HttpPost]
         public object PostEvent([FromBody] Event newEvent)
         {
             EventDB.events.Add(newEvent);
-            return Ok("Event added.");
+            return Ok("Event added successfully.");
         }
       
+        [HttpDelete]
+        public object Delete(int id)
+        {
+            var @event = EventDB.events.FirstOrDefault(e => e.Id == id);
+            EventDB.events.Remove(@event);
+            return Ok("Event deleted successfully.");
+        }
     }
 }

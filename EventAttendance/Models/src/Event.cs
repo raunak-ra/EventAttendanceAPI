@@ -7,6 +7,7 @@ namespace EventAttendance.Models
 {
     public class Event
     {
+        public int Id { get; set; }
         public List<SubEvent> SubEvent { get; set; }
     }
 }

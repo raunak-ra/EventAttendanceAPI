@@ -12,9 +12,10 @@ namespace EventAttendance.Models
 
         public static List<Event> events = new List<Event>()
         {
-
+            
             new Event()
             {
+                Id = 1,
                 SubEvent = SubEventDB.subEvents      // for demo purposes
             }
 

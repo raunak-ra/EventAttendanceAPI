@@ -18,7 +18,6 @@ namespace EventAttendance.Models.DB
                                         new Attendee() { Id = 3, Name  = "Mohan" , IsPresent = false },
                                         new Attendee() { Id = 4, Name  = "Krishna" , IsPresent = false },
                                         new Attendee() { Id = 5, Name  = "Vishnu" , IsPresent = false },
-                                        new Attendee() { Id = 5, Name  = "Vishnu" , IsPresent = false }
                                       }
             },
 
@@ -27,9 +26,7 @@ namespace EventAttendance.Models.DB
                                     {
                                       new Attendee() { Id = 11, Name  = "Grapes" , IsPresent = false },
                                       new Attendee() { Id = 12, Name  = "Apple" , IsPresent = false },
-                                      new Attendee() { Id = 13, Name  = "Mango" , IsPresent = false },
-                                      new Attendee() { Id = 4, Name  = "Krishna" , IsPresent = false },
-                                      new Attendee() { Id = 5, Name  = "Vishnu" , IsPresent = false }
+                                      new Attendee() { Id = 13, Name  = "Mango" , IsPresent = false }
                                     }
             }
 

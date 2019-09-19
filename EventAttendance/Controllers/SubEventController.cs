@@ -13,16 +13,18 @@ namespace EventAttendance.Controllers
     [ApiController]
     public class SubEventController : ControllerBase
     {
-        [HttpGet]
-        public List<SubEvent> GetAllEvents()
+        [HttpGet("{id}")]
+        public List<SubEvent> GetAllSubEventsByEventId(int id)
         {
-            return SubEventDB.subEvents;
+            var subevents = EventDB.events.FirstOrDefault(s => s.Id == id).SubEvent.ToList();
+            return subevents;
         }
 
-        [HttpGet("{id}")]
-        public IEnumerable<SubEvent> GetSubEventById(int id)
+        [HttpGet("{eid}/subevent/{id}")]
+        public SubEvent GetSubEventById(int eid, int id)
         {
-            var subEvent = SubEventDB.subEvents.Where(sb => sb.Id == id);
+            var @event = EventDB.events.FirstOrDefault(e => e.Id == eid);           
+            var subEvent = @event.SubEvent.FirstOrDefault(sb => sb.Id == id);
             return subEvent;
         }
         [HttpPut("{id}")]
@@ -34,7 +36,6 @@ namespace EventAttendance.Controllers
 
 
         [HttpDelete("{id}")]
-
         public void Delete(int id)
         {
             var subEvent = SubEventDB.subEvents.FirstOrDefault(sb => sb.Id == id);
