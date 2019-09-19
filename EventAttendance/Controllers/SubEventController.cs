@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/event/[controller]")]
     [ApiController]
     public class SubEventController : ControllerBase
     {
@@ -25,14 +25,15 @@ namespace EventAttendance.Controllers
             var subEvent = SubEventDB.subEvents.Where(sb => sb.Id == id);
             return subEvent;
         }
-        [HttpPost("add")]
-        public object PostSubEvent([FromBody] SubEvent newSubEvent)
+        [HttpPut("{id}")]
+        public object PostSubEvent(int id, [FromBody] SubEvent newSubEvent)
         {
-            SubEventDB.subEvents.Add(newSubEvent);
+            EventDB.events[id].SubEvent.Add(newSubEvent);
             return Ok("SubEvent added.");
         }
 
-        [HttpDelete("delete/{id}")]
+
+        [HttpDelete("{id}")]
 
         public void Delete(int id)
         {

@@ -8,15 +8,17 @@ namespace EventAttendance.Models
 {
     public class EventDB
     {
-      
+
 
         public static List<Event> events = new List<Event>()
         {
-            
+
             new Event()
             {
-                SubEvent = SubEventDB.subEvents 
+                SubEvent = SubEventDB.subEvents      // for demo purposes
             }
+
+
         };
          
       

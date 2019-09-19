@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/event/subevent/[controller]")]
     [ApiController]
     public class AttendeeController : ControllerBase
     {
@@ -27,15 +27,23 @@ namespace EventAttendance.Controllers
             return attendee;
         }
 
-        [HttpPost("add")]
-        public object PostAttendee([FromBody] Attendee newAttendee)
+
+        [HttpGet("subeventid/{id}")]
+        public List<Attendee> GetAttendeeBySubEventId(int id)
         {
-            AttendeeDB.attendees.Add(newAttendee);
+
+            var attendee = SubEventDB.subEvents.First(s => s.Id == id).Attendees;
+            return attendee;
+        }
+        [HttpPut("add/{id}")]
+        public object PostAttendee(int id, [FromBody] Attendee newAttendee)
+        {
+            SubEventDB.subEvents[id].Attendees.Add(newAttendee);
             return Ok("Attendee added.");
         }
 
-        [HttpPut("present/{id}")]
-        public ActionResult<Object> Put(int id)
+        [HttpPut("{id}/present")]
+        public ActionResult<Object> PutPresent(int id)
         {
             Attendee attendee;
 
@@ -52,8 +60,8 @@ namespace EventAttendance.Controllers
             return Ok("Marked As Present.");
         }
 
-        [HttpPut("absent/{id}")]
-        public ActionResult<Object> Put(int id)
+        [HttpPut("{id}/absent")]
+        public ActionResult<Object> PutAbsent(int id)
         {
             Attendee attendee;
 
@@ -83,7 +91,7 @@ namespace EventAttendance.Controllers
                 return BadRequest("Invalid Request" + e.Message);
             }
 
-            return Ok("Deleted Successfully.")
+            return Ok("Deleted Successfully.");
         }
     }
 }
