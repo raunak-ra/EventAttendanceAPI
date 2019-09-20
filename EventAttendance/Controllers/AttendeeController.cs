@@ -9,17 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/event/subevent/[controller]")]
+    [Route("api/event/subevent/")]
     [ApiController]
     public class AttendeeController : ControllerBase
     {
-        [HttpGet]
-        public List<Attendee> GetAllEvents()
+        [HttpGet("attendee")]
+        public List<Attendee> GetAllAttendees()
         {
             return AttendeeDB.attendees;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("attendee/{id}")]
         public IEnumerable<Attendee> GetAttendeeById(int id)
         {
 
@@ -28,21 +28,21 @@ namespace EventAttendance.Controllers
         }
 
 
-        [HttpGet("subeventid/{id}")]
-        public List<Attendee> GetAttendeeBySubEventId(int id)
+        [HttpGet("{sid}/attendee")]
+        public List<Attendee> GetAttendeeBySubEventId(int sid)
         {
 
-            var attendee = SubEventDB.subEvents.First(s => s.Id == id).Attendees;
+            var attendee = SubEventDB.subEvents.First(s => s.Id == sid).Attendees;
             return attendee;
         }
-        [HttpPut("add/{id}")]
-        public object PostAttendee(int id, [FromBody] Attendee newAttendee)
+        [HttpPut("{sid}/attendee")]
+        public object PostAttendee(int sid, [FromBody] Attendee newAttendee)
         {
-            SubEventDB.subEvents[id].Attendees.Add(newAttendee);
+            SubEventDB.subEvents[sid].Attendees.Add(newAttendee);
             return Ok("Attendee added.");
         }
 
-        [HttpPut("{id}/present")]
+        [HttpPut("attendee/{id}/present")]
         public ActionResult<Object> PutPresent(int id)
         {
             Attendee attendee;
@@ -51,7 +51,7 @@ namespace EventAttendance.Controllers
             {
                 attendee = AttendeeDB.attendees.FirstOrDefault(e => e.Id == id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest("Invalid Request" + e.Message);
             }
@@ -60,7 +60,7 @@ namespace EventAttendance.Controllers
             return Ok("Marked As Present.");
         }
 
-        [HttpPut("{id}/absent")]
+        [HttpPut("attendee/{id}/absent")]
         public ActionResult<Object> PutAbsent(int id)
         {
             Attendee attendee;
@@ -78,7 +78,7 @@ namespace EventAttendance.Controllers
             return Ok("Marked As Absent.");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("attendee/{id}")]
         public ActionResult<Object> Delete(int id)
         {
             try
@@ -86,7 +86,7 @@ namespace EventAttendance.Controllers
                 var attendee = AttendeeDB.attendees.FirstOrDefault(e => e.Id == id);
                 AttendeeDB.attendees.Remove(attendee);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest("Invalid Request" + e.Message);
             }

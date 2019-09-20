@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/event/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace EventAttendance.Controllers
             EventDB.events.Add(newEvent);
             return Ok("Event added successfully.");
         }
-      
+
         [HttpDelete]
         public object Delete(int id)
         {

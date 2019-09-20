@@ -9,21 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventAttendance.Controllers
 {
-    [Route("api/event/[controller]")]
+    [Route("api/event/{eid}/[controller]")]
     [ApiController]
     public class SubEventController : ControllerBase
     {
-        [HttpGet("{id}")]
-        public List<SubEvent> GetAllSubEventsByEventId(int id)
+        [HttpGet]
+        public List<SubEvent> GetAllSubEventsByEventId(int eid)
         {
-            var subevents = EventDB.events.FirstOrDefault(s => s.Id == id).SubEvent.ToList();
+            var subevents = EventDB.events.FirstOrDefault(s => s.Id == eid).SubEvent.ToList();
             return subevents;
         }
 
-        [HttpGet("{eid}/subevent/{id}")]
+        [HttpGet("{id}")]
         public SubEvent GetSubEventById(int eid, int id)
         {
-            var @event = EventDB.events.FirstOrDefault(e => e.Id == eid);           
+            var @event = EventDB.events.FirstOrDefault(e => e.Id == eid);
             var subEvent = @event.SubEvent.FirstOrDefault(sb => sb.Id == id);
             return subEvent;
         }
